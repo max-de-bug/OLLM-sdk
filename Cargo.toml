@@ -1,5 +1,5 @@
 [package]
-name = "OLLM-sdk"
+name = "ollm_sdk"
 version = "0.1.0"
 edition = "2024"
 
