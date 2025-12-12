@@ -6,7 +6,7 @@ authors = ["Connor yuzvamaksym@gmail.com"]
 description = "A type-safe Rust SDK for the OLLM API with compile-time error checking"
 license = "MIT OR Apache-2.0"
 repository = "https://github.com/max-de-bug/OLLM-sdk"
-keywords = ["ollm", "api", "sdk", "openai", "llm", "chat", "completions"]
+keywords = ["ollm", "api", "sdk", "llm", "chat"]
 categories = ["api-bindings", "web-programming"]
 readme = "README.md"
 
