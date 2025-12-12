@@ -1,7 +1,14 @@
 [package]
 name = "ollm_sdk"
 version = "0.1.0"
-edition = "2024"
+edition = "2021"
+authors = ["Connor yuzvamaksym@gmail.com"]
+description = "A type-safe Rust SDK for the OLLM API with compile-time error checking"
+license = "MIT OR Apache-2.0"
+repository = "https://github.com/max-de-bug/OLLM-sdk"
+keywords = ["ollm", "api", "sdk", "openai", "llm", "chat", "completions"]
+categories = ["api-bindings", "web-programming"]
+readme = "README.md"
 
 [dependencies]
 reqwest = { version = "0.11", features = ["json"] }

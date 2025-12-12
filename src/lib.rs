@@ -6,3 +6,4 @@ pub mod models;
 pub use chat::{ChatMessage, ChatResponse};
 pub use client::OllmClient;
 pub use error::OllmError;
+pub use models::Model;

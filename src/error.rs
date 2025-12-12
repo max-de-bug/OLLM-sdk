@@ -5,6 +5,9 @@ pub enum OllmError {
     #[error("HTTP request failed: {0}")]
     Request(#[from] reqwest::Error),
 
+    #[error("API error (status {status}): {message}")]
+    ApiError { status: u16, message: String },
+
     #[error("Invalid response format")]
     InvalidResponse,
 
