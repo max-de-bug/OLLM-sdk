@@ -16,7 +16,7 @@ Add this to your `Cargo.toml`:
 
 ```toml
 [dependencies]
-ollm_sdk = "0.1.0"
+ollm_sdk = "0.1.1"
 tokio = { version = "1", features = ["full"] }
 ```
 
@@ -83,7 +83,7 @@ let messages = vec![
     },
 ];
 
-let response = client.chat(messages, Model::GPT4Mini.as_str()).await?;
+let response = client.chat(messages, Model::NearGLM46.as_str()).await?;
 ```
 
 ### Error Handling
@@ -125,8 +125,6 @@ if let Some(usage) = &response.usage {
 use ollm_sdk::Model;
 
 Model::NearGLM46.as_str()    // "near/GLM-4.6"
-Model::GPT4Mini.as_str()      // "gpt-4.1-mini"
-Model::GeminiFlash.as_str()   // "gemini/flash"
 ```
 
 ## API Reference
@@ -186,6 +184,7 @@ pub enum OllmError {
 ## Comparison with Raw HTTP
 
 **Without SDK (30+ lines):**
+
 ```rust
 let response = client
     .post("https://api.ollm.com/v1/chat/completions")
@@ -198,6 +197,7 @@ let response = client
 ```
 
 **With SDK (3 lines):**
+
 ```rust
 let response = client.chat(messages, model).await?;
 println!("{}", response.first_content()?);
@@ -215,4 +215,3 @@ at your option.
 ## Contributing
 
 Contributions are welcome! Please feel free to submit a Pull Request.
-
