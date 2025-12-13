@@ -1,6 +1,6 @@
 # OLLM SDK
 
-A production-ready, type-safe Rust SDK for the [OLLM API](https://api.ollm.com) with compile-time error checking and zero-cost abstractions.
+A production-ready, type-safe Rust SDK for the [OLLM API](https://console.ollm.com/) with compile-time error checking and zero-cost abstractions.
 
 ## Features
 
@@ -16,7 +16,7 @@ Add this to your `Cargo.toml`:
 
 ```toml
 [dependencies]
-ollm_sdk = "0.1.3"
+ollm_sdk = "0.1.4"
 tokio = { version = "1", features = ["full"] }
 ```
 
