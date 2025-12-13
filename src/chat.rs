@@ -1,19 +1,9 @@
 use crate::client::OllmClient;
 use crate::error::OllmError;
 use serde::{Deserialize, Serialize};
+use reqwest::Response;
 
 /// A message in a chat conversation.
-///
-/// # Example
-///
-/// ```no_run
-/// use ollm_sdk::ChatMessage;
-///
-/// let message = ChatMessage {
-///     role: "user".to_string(),
-///     content: "Hello!".to_string(),
-/// };
-/// ```
 #[derive(Serialize, Clone, Debug)]
 pub struct ChatMessage {
     /// The role of the message sender (e.g., "user", "assistant", "system")
@@ -62,17 +52,6 @@ impl ChatResponse {
     /// # Returns
     ///
     /// Returns `Ok(&str)` with the content if a choice exists, or `Err(OllmError::MissingChoice)` if no choices are present.
-    ///
-    /// # Example
-    ///
-    /// ```no_run
-    /// # use ollm_sdk::ChatResponse;
-    /// # let response: ChatResponse = todo!();
-    /// match response.first_content() {
-    ///     Ok(content) => println!("Response: {}", content),
-    ///     Err(e) => eprintln!("Error: {}", e),
-    /// }
-    /// ```
     pub fn first_content(&self) -> Result<&str, OllmError> {
         self.choices
             .first()
@@ -145,29 +124,6 @@ impl OllmClient {
     /// # Returns
     ///
     /// Returns `Ok(ChatResponse)` on success, or `Err(OllmError)` on failure.
-    ///
-    /// # Example
-    ///
-    /// ```no_run
-    /// use ollm_sdk::{ChatMessage, OllmClient, Model};
-    ///
-    /// # async fn example() -> Result<(), Box<dyn std::error::Error>> {
-    /// let client = OllmClient::new("https://api.ollm.com/v1", "your-api-key");
-    ///
-    /// let response = client
-    ///     .chat(
-    ///         vec![ChatMessage {
-    ///             role: "user".to_string(),
-    ///             content: "Hello!".to_string(),
-    ///         }],
-    ///         Model::NearGLM46.as_str(),
-    ///     )
-    ///     .await?;
-    ///
-    /// println!("{}", response.first_content()?);
-    /// # Ok(())
-    /// # }
-    /// ```
     pub async fn chat(
         &self,
         messages: Vec<ChatMessage>,
@@ -180,7 +136,7 @@ impl OllmClient {
             messages,
         };
 
-        let response = self
+        let response: Response = self
             .http
             .post(&url)
             .bearer_auth(&self.api_key)
@@ -191,7 +147,7 @@ impl OllmClient {
         let status = response.status();
 
         if !status.is_success() {
-            let error_text = response
+            let error_text: String = response
                 .text()
                 .await
                 .unwrap_or_else(|e| format!("Failed to read error response: {}", e));
@@ -201,7 +157,7 @@ impl OllmClient {
             });
         }
 
-        let res = response.json::<ChatResponse>().await?;
+        let res: ChatResponse = response.json().await?;
         Ok(res)
     }
 }
