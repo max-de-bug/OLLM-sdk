@@ -1,6 +1,6 @@
 [package]
 name = "ollm_sdk"
-version = "0.1.3"
+version = "0.1.4"
 edition = "2021"
 authors = ["Connor yuzvamaksym@gmail.com"]
 description = "A type-safe Rust SDK for the OLLM API with compile-time error checking"
