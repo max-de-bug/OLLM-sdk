@@ -16,7 +16,7 @@ Add this to your `Cargo.toml`:
 
 ```toml
 [dependencies]
-ollm_sdk = "0.1.4"
+ollm_sdk = "0.1.3"
 tokio = { version = "1", features = ["full"] }
 ```
 
