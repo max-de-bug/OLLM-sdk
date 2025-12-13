@@ -81,6 +81,59 @@ impl ChatResponse {
     }
 }
 
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_first_content_with_choices() {
+        let response = ChatResponse {
+            id: None,
+            object: None,
+            created: None,
+            model: "near/GLM-4.6".to_string(),
+            choices: vec![ChatChoice {
+                message: ChatMessageResponse {
+                    role: "assistant".to_string(),
+                    content: "Hello, world!".to_string(),
+                },
+            }],
+            usage: None,
+        };
+
+        assert_eq!(response.first_content().unwrap(), "Hello, world!");
+    }
+
+    #[test]
+    fn test_first_content_without_choices() {
+        let response = ChatResponse {
+            id: None,
+            object: None,
+            created: None,
+            model: "near/GLM-4.6".to_string(),
+            choices: vec![],
+            usage: None,
+        };
+
+        assert!(matches!(
+            response.first_content(),
+            Err(OllmError::MissingChoice)
+        ));
+    }
+
+    #[test]
+    fn test_chat_message_serialization() {
+        let message = ChatMessage {
+            role: "user".to_string(),
+            content: "Test message".to_string(),
+        };
+
+        let json = serde_json::to_string(&message).unwrap();
+        assert!(json.contains("user"));
+        assert!(json.contains("Test message"));
+    }
+}
+
 impl OllmClient {
     /// Sends a chat completion request to the OLLM API.
     ///

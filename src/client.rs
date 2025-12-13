@@ -14,9 +14,9 @@ use reqwest::Client;
 /// ```
 #[derive(Clone)]
 pub struct OllmClient {
-    pub base_url: String,
-    pub api_key: String,
-    pub http: Client,
+    pub(crate) base_url: String,
+    pub(crate) api_key: String,
+    pub(crate) http: Client,
 }
 
 impl OllmClient {
@@ -43,5 +43,23 @@ impl OllmClient {
             api_key: api_key.into(),
             http: Client::new(),
         }
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_client_creation() {
+        let _client = OllmClient::new("https://api.ollm.com/v1", "test-key");
+        // Client should be created successfully - just verify it doesn't panic
+    }
+
+    #[test]
+    fn test_client_clone() {
+        let client = OllmClient::new("https://api.ollm.com/v1", "test-key");
+        let _cloned = client.clone();
+        // Both should be valid - just verify clone works
     }
 }
