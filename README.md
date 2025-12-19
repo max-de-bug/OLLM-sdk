@@ -16,7 +16,7 @@ Add this to your `Cargo.toml`:
 
 ```toml
 [dependencies]
-ollm_sdk = "0.1.4"
+ollm_sdk = "0.1.5"
 tokio = { version = "1", features = ["full"] }
 ```
 
@@ -124,7 +124,19 @@ if let Some(usage) = &response.usage {
 ```rust
 use ollm_sdk::Model;
 
-Model::NearGLM46.as_str()    // "near/GLM-4.6"
+// NEAR Provider Models
+Model::NearDeepSeekV31.as_str()    // "near/DeepSeek-V3.1"
+Model::NearGLM46.as_str()          // "near/GLM-4.6"
+Model::NearGptOss120b.as_str()    // "near/gpt-oss-120b"
+Model::NearQwen330BA3BInstruct2507.as_str()  // "near/Qwen3-30B-A3B-Instruct-2507"
+
+// Phala Provider Models
+Model::PhalaDeepSeekChatV30324.as_str()  // "phala/deepseek-chat-v3-0324"
+Model::PhalaDeepSeekChatV31.as_str()     // "phala/deepseek-chat-v3.1"
+Model::PhalaDeepSeekR10528.as_str()      // "phala/deepseek-r1-0528"
+Model::PhalaGemma327bIt.as_str()         // "phala/gemma-3-27b-it"
+Model::PhalaGLM46.as_str()               // "phala/glm-4.6"
+Model::PhalaGptOss120b.as_str()         // "phala/gpt-oss-120b"
 ```
 
 ## API Reference
